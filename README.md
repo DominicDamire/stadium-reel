@@ -4,7 +4,7 @@ _Intergalactic Stadium is the working title; the real name will be chosen by the
 
 A 3D fan stadium in the browser. Clubs fill the sectors in proportion to their fan count, fans pick their own seat, and the arena has VIP lounges, a rewards ladder, celebrities and footballers in the stands, and a space scene around the bowl.
 
-**Live: https://d14life.github.io/stadium-reel-demo/**
+**Live: https://dominicdamire.github.io/stadium-reel/**
 
 This repo holds only the built, minified static demo. The source lives in a private repository.
 
