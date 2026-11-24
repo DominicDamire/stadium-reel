@@ -284,6 +284,10 @@
 .fp-id h2{font-size:26px; overflow-wrap:anywhere}
 .fp-id p{display:flex; align-items:center; gap:6px; font-weight:700; font-size:15px}
 .fp-id small{font-size:12px; font-weight:600}
+.fp-tier{display:inline-block; flex:none; margin-left:4px; padding:1px 6px; background:#C9CDD3; color:#000; border:2px solid #000; font:700 11px var(--body); font-style:normal; letter-spacing:.06em; text-transform:uppercase; text-shadow:none; line-height:1.3}
+.fp-tier[data-t=president]{background:var(--gold)}
+.fp-tierline{display:flex; align-items:center; gap:8px; margin:12px 0 0; font-size:13px; font-weight:600}
+.fp-tierline .fp-tier{margin-left:0}
 .fp-acts{display:flex; gap:8px; margin:14px 0 12px}
 .fp-acts .fp-btn{flex:1; min-width:0}
 .fp-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
@@ -524,9 +528,6 @@ html.fp-on .dv-pill,.hud.jn-on~.dv-pill{display:none}
 .hb-opt:disabled{cursor:default}
 .hb-two{display:grid; grid-template-columns:1fr 1fr; gap:8px}.hb-two h4{font:700 13px var(--disp); text-transform:uppercase; margin-bottom:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .hb-two .hb-opt{padding:0 6px}.hb-two .hb-opt span{font-size:12px}
-.hb-potm{display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:10px; padding:10px 12px; margin-bottom:10px; background:var(--gold); color:#000; border:2px solid #000; box-shadow:4px 4px 0 #000}
-.hb-potm>b{font-size:26px}.hb-potm span{display:grid; min-width:0}.hb-potm span b{font-size:18px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}.hb-potm small{font:600 12px var(--body)}.hb-potm em{font:700 22px var(--disp); font-style:normal}
-.hb-star{color:var(--gold)!important}
 .hb-pl{text-decoration:underline; text-decoration-color:#555; text-underline-offset:2px}
 .hb-pp{width:100%; max-width:360px}
 .hb-fxs{display:grid; gap:6px}
@@ -590,3 +591,345 @@ html.fp-on .dv-pill,.hud.jn-on~.dv-pill{display:none}
 .hb-fxs .hb-rd{display:block; margin:12px 0 0; color:var(--muted)}
 
 .hb-vk{position:absolute; z-index:5; right:5px; top:34px; width:22px; height:22px; display:grid; place-items:center; background:#000c; border-radius:50%}.hb-vk img,.hb-vk svg{width:16px; height:16px; object-fit:contain}
+/* story card (storycard.js): the preview beside Share / Save and «I posted» (fan.js storyBlock) */
+.hb-sc{display:grid; grid-template-columns:128px 1fr; gap:12px; align-items:start; margin:0 0 12px}
+.hb-sc-img{display:block; width:128px; height:auto; aspect-ratio:9/16; border:2px solid #F4F5F7; box-shadow:3px 3px 0 var(--jc); background:#111}
+.hb-sc-wait{display:grid; place-items:center; padding:8px; text-align:center; font-size:12px; color:var(--muted)}
+.hb-sc-acts{display:flex; flex-direction:column; gap:8px; min-width:0}.hb-sc-acts .fp-btn{width:100%; white-space:normal; line-height:1.15; padding:6px 10px}.hb-sc-acts .fp-note{margin:0}
+/* fan-rules v1.8: «Your decisions» on the profile (hub-page.js decisionsBlock) */
+.hb-dec{margin:14px 0 4px}.hb-dec .fp-note{margin:2px 0 6px}
+.hb-cards.dc .hb-vn{height:5em; min-width:0; padding:0 4px; overflow-wrap:normal; word-break:normal; hyphens:none; font-size:min(14px,calc(140px / max(var(--w,1),10)))}   /* wraps between words only; a long word (e.g. Schweinsteiger, 14) shrinks the font to fit */
+.hb-cards.dc .hb-vs{grid-template-columns:1fr}.hb-cards.dc .hb-vs dd{font-size:15px; text-align:center}.hb-cards.dc .hb-vs dt{text-align:center; white-space:normal; letter-spacing:.02em}   /* RU «ВЫБОР ФАНАТОВ» wraps inside the card */
+.hb-go.dc{position:static; margin:6px 0 0; padding:10px 12px; border:2px solid #222}
+.hb-dh{margin:16px 0 6px; font:700 13px var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--gold)}
+.hb-dxi{margin:8px 0 6px}
+.hb-job{margin:4px 0 10px}
+
+/* ================= Matchday night (2026-11-12, Damir's direction 1): the fantasy hub restyled. Tokens set once here; club colour (--jc, --jc-ink, --jc-hi from fan.js) on actions only,
+   gold = «your pick». Backgrounds are captures of our own stadium (assets/night/). The Ticket card (.tk*) is untouched. Restyle only: no markup or behaviour change. */
+.fp{--bg:#05070d; --glass:rgba(13,17,30,.66); --glass-hi:rgba(22,28,46,.78); --glass-lo:rgba(255,255,255,.05); --line:rgba(255,255,255,.14); --line-hi:rgba(255,255,255,.28);
+  --muted:#AEB6C6; --ok:#7CE3A8; --r:14px; --r-s:10px; --blur:blur(14px) saturate(1.3); --jc-ink:#fff; --jc-hi:var(--jc);
+  background:var(--bg)}
+/* the stand scrolls away with the page (attachment local), so text further down never sits on the bright crowd */
+.fp .fp-main{background:linear-gradient(180deg,rgba(5,7,13,.5) 0,rgba(5,7,13,.82) 130px,var(--bg) 250px),url(assets/night/stand.webp) center top/100% auto no-repeat; background-attachment:local}
+.fp[data-page=fan] .fp-main{background:linear-gradient(180deg,rgba(5,7,13,.4) 0,rgba(5,7,13,.12) 60px,rgba(5,7,13,.45) 150px,rgba(5,7,13,.86) 215px,var(--bg) 290px),linear-gradient(100deg,color-mix(in srgb,var(--jc) 34%,transparent),transparent 62%) 0 0/100% 290px no-repeat,url(assets/night/stand.webp) center top/100% auto no-repeat; background-attachment:local}
+.fp .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap}
+.fp-glass,.fp-stats>div,.fp-dl,.fp-last,.hb-mgr,.hb-mh,.cp-tie,.cp-live,.cp-head,.hb-fx,.hb-big,.fp-bench,.hb-how table,.hb-go.dc{background:var(--glass); border:1px solid var(--line); border-radius:var(--r); -webkit-backdrop-filter:var(--blur); backdrop-filter:var(--blur)}
+/* top bar: glass back pill + title with a club tick */
+.fp-bar{background:transparent; border:0}
+.fp-back{min-height:40px; padding:0 14px; border:1px solid var(--line)!important; border-radius:999px; background:var(--glass)!important; -webkit-backdrop-filter:var(--blur); backdrop-filter:var(--blur); font:600 13px var(--body); text-transform:none}
+.fp-t{background:none; border:0; transform:none; padding:0; text-shadow:0 2px 12px rgba(0,0,0,.6); letter-spacing:.04em; display:flex; align-items:center; gap:8px}
+.fp-t::before{content:""; width:4px; height:16px; background:var(--jc-hi)}
+/* bottom nav: a floating rounded glass bar with icons */
+.fp-tabs{margin:0 10px calc(8px + env(safe-area-inset-bottom)); padding:0; border:1px solid var(--line); border-radius:18px; background:var(--glass-hi); -webkit-backdrop-filter:var(--blur); backdrop-filter:var(--blur); overflow:hidden}
+.fp-tabs>*{min-height:58px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; font:600 11px var(--body)!important; text-transform:none; letter-spacing:0!important; color:var(--muted); position:relative}
+.fp-tabs>*::before{content:""; width:20px; height:20px; flex:none; background:currentColor; -webkit-mask:var(--ic) center/contain no-repeat; mask:var(--ic) center/contain no-repeat}
+.fp-tabs>[aria-current=page]{background:transparent; color:#fff; box-shadow:none}
+.fp-tabs>[aria-current=page]::after{content:""; position:absolute; bottom:6px; width:18px; height:3px; border-radius:2px; background:var(--jc-hi)}
+.fp-tabs>[href="#/me"]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c1-4 4-6 8-6s7 2 8 6'/%3E%3C/svg%3E")}
+.fp-tabs>[href="#/xi"]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9'%3E%3Crect x='4' y='3' width='16' height='18' rx='2'/%3E%3Cpath d='M4 12h16M12 3v4M12 17v4'/%3E%3C/svg%3E")}
+.fp-tabs>[href="#/cup"]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9' stroke-linejoin='round'%3E%3Cpath d='M7 4h10v5a5 5 0 0 1-10 0zM12 14v4M8 21h8M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4'/%3E%3C/svg%3E")}
+.fp-tabs>[href="#/more"]{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='5' cy='12' r='2'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3Ccircle cx='19' cy='12' r='2'/%3E%3C/svg%3E")}
+.fp-tabs>button{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9'%3E%3Cellipse cx='12' cy='12' rx='9' ry='5'/%3E%3Cellipse cx='12' cy='12' rx='4' ry='2'/%3E%3C/svg%3E")}
+/* buttons: glass; primary = club colour; pressed = white (state) */
+.fp-btn{border-radius:var(--r-s); background:var(--glass)!important; -webkit-backdrop-filter:var(--blur); backdrop-filter:var(--blur); border:1px solid var(--line-hi)!important; font-size:14px; letter-spacing:.02em}
+.fp-btn[aria-pressed=true]{background:#F4F5F7!important; color:#000; border-color:#F4F5F7!important; box-shadow:none}
+.fp-btn.pri{background:var(--jc)!important; color:var(--jc-ink); border-color:transparent!important; box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),0 8px 22px color-mix(in srgb,var(--jc) 40%,transparent)}
+.fp-btn.pri:disabled{box-shadow:inset 0 0 0 1px rgba(255,255,255,.22)}
+.fp-btn:disabled{opacity:.6}
+.fp-x,.tk-fold{border-radius:var(--r-s); border:1px solid var(--line-hi)!important}
+/* section heads: white, quiet rule */
+.fp-h{color:#fff; letter-spacing:.12em}.fp-h::after{background:var(--line)}
+.fp-none{border:1px dashed var(--line-hi); border-radius:var(--r); background:var(--glass-lo)}
+.fp-note{color:var(--muted)}
+.fp-toast{border:1px solid var(--line-hi); border-radius:999px; background:var(--glass-hi); -webkit-backdrop-filter:var(--blur); backdrop-filter:var(--blur); box-shadow:0 8px 24px rgba(0,0,0,.5)}
+/* profile: the stadium hero shows through, avatar ringed in the club colour */
+.fp-hero{background:none!important; border:0; padding:56px 16px 14px; text-shadow:0 1px 2px #000,0 2px 12px rgba(0,0,0,.8)}
+.fp-ava{width:80px; height:80px; border:3px solid var(--jc-hi); box-shadow:0 0 0 3px rgba(255,255,255,.14),0 10px 28px rgba(0,0,0,.6)}
+.fp-id p,.fp-id small{text-shadow:0 1px 8px rgba(0,0,0,.9)}
+.fp-tier{border-radius:6px; border:1px solid rgba(255,255,255,.4); background:rgba(5,7,13,.6); color:#fff; padding:1px 7px}
+.fp-tier[data-t=president],.fp-tier[data-t=manager]{background:linear-gradient(rgba(245,181,46,.18),rgba(245,181,46,.18)),rgba(5,7,13,.75); border-color:rgba(245,181,46,.65); color:var(--gold)}
+.fp-stats{gap:0; border-radius:var(--r); overflow:hidden}
+.fp-stats>div{border-radius:0; border-width:0 0 0 1px; padding:10px 12px}
+.fp-stats>div:first-child{border-left:0}
+.fp-stats{background:var(--glass); border:1px solid var(--line); -webkit-backdrop-filter:var(--blur); backdrop-filter:var(--blur)}
+.fp-stats>div{background:transparent; -webkit-backdrop-filter:none; backdrop-filter:none}
+.fp-bar2{height:5px; border:0; border-radius:3px; background:rgba(255,255,255,.12); overflow:hidden}
+.fp-bar2 i{background:linear-gradient(90deg,var(--jc-hi),color-mix(in srgb,var(--jc-hi) 60%,#fff))}
+.fp-badges li{background:var(--glass); color:#fff; border:1px solid var(--line); border-radius:999px; box-shadow:none}
+.fp-badges svg,.fp-badges [data-b=top] svg,.fp-badges [data-b=first] svg{color:var(--gold)}
+.fp-hist li{border-bottom:1px solid var(--line)}
+.fp-hist em{color:var(--ok)}
+/* «My XI»: glass head, floodlit pitch of our own grass */
+.fp-dl,.fp a.fp-dl{background:var(--glass); color:var(--text); box-shadow:none}
+.fp-dl small{color:var(--muted)}
+.fp-dl.shut{background:color-mix(in srgb,var(--red) 35%,var(--glass)); border-color:var(--red)}
+.fp-last{border-color:var(--line)}
+.fp-last b{color:var(--gold)}
+.fp-seg{border:1px solid var(--line); border-radius:999px; padding:3px; background:var(--glass)}
+.fp-seg>*{border-radius:999px; min-height:36px; font:600 13px var(--body)!important; text-transform:none!important}
+.fp-seg>[aria-selected=true]{background:#F4F5F7; color:#000}
+.fp-forms button{border:1px solid var(--line-hi)!important; border-radius:var(--r-s); background:var(--glass-lo)}
+.fp-forms button[aria-pressed=true]{background:#F4F5F7; color:#000; border-color:#F4F5F7!important; box-shadow:none}
+.fp-pitch{--fl:rgba(255,252,235,.26); background:
+  radial-gradient(70% 34% at 4% 0,var(--fl),transparent 70%),radial-gradient(70% 34% at 96% 0,var(--fl),transparent 70%),
+  radial-gradient(70% 34% at 4% 100%,var(--fl),transparent 70%),radial-gradient(70% 34% at 96% 100%,var(--fl),transparent 70%),
+  radial-gradient(80% 46% at 50% 50%,rgba(255,255,235,.12),transparent 75%),
+  radial-gradient(130% 70% at 50% 50%,transparent 55%,rgba(2,10,6,.5)),
+  repeating-linear-gradient(180deg,rgba(0,12,4,.16) 0 84px,rgba(220,255,200,.07) 84px 168px),   /* mowing stripes, in phase with the tile (dark half on top) */
+  url(assets/night/grass.webp) center top/100% 168px repeat-y,#2f8a3c;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+.tk-marks{filter:drop-shadow(0 0 3px rgba(255,255,255,.55))}
+.tk-marks *{stroke:#fff; stroke-width:.45}
+.tk-ghost{border-radius:.8em; background:rgba(5,10,20,.45); border-color:rgba(255,255,255,.75)}
+.tk-sub{border-radius:.4em; background:rgba(5,7,13,.85)}
+.fp-bench{box-shadow:none; padding:10px 6px 12px}
+.fp-bench h3{color:#fff}
+.fp-save{margin:0 10px 8px; padding:8px 8px 8px 14px; border:1px solid var(--line); border-radius:var(--r); background:var(--glass-hi); -webkit-backdrop-filter:var(--blur); backdrop-filter:var(--blur)}
+.tk-tray{background:var(--glass-hi); border-top:1px solid var(--line); -webkit-backdrop-filter:var(--blur); backdrop-filter:var(--blur)}
+.tk-club{border-radius:999px; padding:0 8px}
+.tk-chips button{border:1px solid var(--line-hi)!important; border-radius:999px; padding:0 10px}
+.tk-chips [aria-pressed=true]{background:#F4F5F7; color:#000}
+.tk-clubs button{border-radius:var(--r-s); background:var(--glass-lo); border:1px solid var(--line)!important}
+.tk-item small{border-radius:.4em}
+.tk-ov{background:rgba(3,5,10,.86); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px)}
+.tk-ov>.fp-x{background:var(--glass-hi); border-radius:999px; box-shadow:none}
+.tk-note{color:var(--gold)}
+/* leaderboards: glass rows; your row in gold */
+.fp-lr{background:var(--glass)!important; border:1px solid var(--line); border-left:4px solid var(--c); border-radius:var(--r-s)}
+.fp-lr img{border:2px solid rgba(255,255,255,.2)}
+.fp-lr.me{background:rgba(245,181,46,.13)!important; color:var(--text); border-color:var(--gold); border-left-color:var(--c); box-shadow:0 0 18px rgba(245,181,46,.16)}
+.fp-lr.me .rk,.fp-lr.me .nm small{color:var(--muted)}
+.fp-lr .nm small{flex-wrap:wrap; row-gap:3px}   /* RU: «лучший фанат» + tier chip wrap instead of clipping */
+.fp-mine{background:linear-gradient(transparent,var(--bg) 30%)}
+/* cup */
+.cp-tie{border-radius:var(--r-s)}
+.cp-tie.live{border-color:var(--jc-hi); box-shadow:0 0 0 1px var(--jc-hi) inset}
+.cp-live{border-color:var(--jc-hi); box-shadow:0 0 24px color-mix(in srgb,var(--jc) 30%,transparent)}
+.cp-sup{height:8px; border:0; border-radius:4px; background:rgba(255,255,255,.85); overflow:hidden}
+.cp-sup i{background:var(--jc)}
+.cp-out{border:1px solid var(--gold); border-radius:var(--r); background:rgba(245,181,46,.1)}
+.cp-champ{border:0; border-radius:var(--r)}
+.cp-goals li,.cp-xis li{border-bottom:1px solid var(--line)}
+.cp-xis{padding:10px; background:var(--glass); border:1px solid var(--line); border-radius:var(--r)}
+/* hub: manager, player page, votes, fixtures, More */
+.hb-mgr{border-left:3px solid var(--jc-hi)}
+.hb-mgr .fp-stats>div{background:transparent}
+.hb-mh{box-shadow:none}
+.hb-mh small{color:var(--muted)}
+.hb-in{border:1px solid var(--line-hi); border-radius:var(--r-s); background:rgba(255,255,255,.92); box-shadow:none}
+.hb-opt{background:var(--glass)!important; border:1px solid var(--line)!important; border-radius:var(--r-s)}
+.hb-opt[aria-pressed=true]{border-color:var(--gold)!important; box-shadow:0 0 16px rgba(245,181,46,.18)}
+.hb-fx{border-radius:var(--r-s)}
+.hb-fx.mine{border-color:var(--jc-hi); box-shadow:0 0 0 1px var(--jc-hi) inset}
+.hb-fx em{border-radius:6px; background:rgba(0,0,0,.45); border:1px solid var(--line)}
+.hb-fx.done em{background:#F4F5F7; color:#000; border-color:#F4F5F7}
+.hb-big{box-shadow:none; border-left:3px solid var(--jc-hi)}
+.hb-big i{color:var(--jc-hi)}
+.hb-vc{background:var(--glass)!important; border:1px solid var(--line)!important; border-radius:var(--r)}
+.hb-vc.on{border-color:var(--gold)!important; background:rgba(245,181,46,.12)!important; box-shadow:0 0 18px rgba(245,181,46,.2)}
+.hb-vc.mine:not(.on){border-color:var(--line-hi)!important}
+.hb-tick{border-radius:50%; border:0; right:4px; top:4px}
+.hb-mine{border-radius:6px; border:0}
+.hb-vbar{border:0; border-radius:5px; background:rgba(0,0,0,.45); overflow:hidden}
+.hb-go{background:color-mix(in srgb,var(--bg) 88%,transparent); border-top:1px solid var(--line); -webkit-backdrop-filter:var(--blur); backdrop-filter:var(--blur)}
+.hb-go small{color:var(--gold)}
+.hb-go.dc{border:1px solid var(--line)}
+.hb-sc-img{border:1px solid var(--line-hi); border-radius:var(--r-s); box-shadow:0 10px 26px rgba(0,0,0,.5)}
+.hb-dh{color:#fff}
+.hb-vk{border-radius:50%}
+/* Club XI: how it was picked */
+.hb-how{margin-top:8px}
+.hb-why-p{margin:12px 0 6px; font:700 12px var(--body); letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.hb-why{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; font-size:13px}
+.hb-why th,.hb-why td{padding:7px 6px; text-align:right; border-top:1px solid var(--line); white-space:nowrap}
+.hb-why thead th{border-top:0; font:600 10px var(--body); letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.hb-why th:nth-child(2){text-align:left; width:100%; white-space:normal; overflow-wrap:anywhere; font-weight:600}
+.hb-why td:first-child{width:22px; text-align:center; padding-right:0}
+.hb-why tr.in td:first-child i{font-style:normal; color:var(--gold); font-weight:700}
+.hb-why tr.in{background:rgba(245,181,46,.08)}
+.hb-why tr.out{opacity:.45}
+
+.hb-why small{font-size:11px; color:var(--muted); text-decoration:none}
+@media (prefers-reduced-motion: reduce){ .fp *{transition:none!important; animation:none!important} }
+
+/* ================= Hub system (2026-11-14, owner: 'spacing different everywhere', 'looks shit on PC as it was made for mobile').
+   One spacing scale (--s1..--s8), one type scale (title / heading / body / small), one card (glass, 1px line, --r, no shadow), one button height (44, compact controls 36).
+   Then the desktop layout (>= 1024 px: side nav, content up to 1320 px, XI pitch | picker, 2-3 column pages) and a tidier tablet (768-1023). Layout wrappers in the markup
+   (.fp-cols, .fp-xi, .fp-benches, .hb-pcols, .hb-fcols, .hb-why-g, .cp-rounds) are display: contents below 1024 px. */
+.fp{--s1:4px; --s2:8px; --s3:12px; --s4:16px; --s6:24px; --s8:32px; --gut:var(--s4); --pad:var(--s3); --gap:var(--s2); --sec:var(--s6);
+  --fs-title:20px; --fs-h:14px; --fs-body:15px; --fs-small:12px; --btn:44px; --ctl:36px}
+.fp-cols,.fp-col,.fp-xi,.fp-benches,.hb-pcols,.hb-pside,.hb-pbody,.hb-fcols,.hb-fcols>div,.hb-why-g,.hb-why-c,.cp-rounds,.cp-rd{display:contents}
+.fp .fp-main{padding-top:var(--s4); padding-bottom:var(--s6)}
+/* type: page title, section heading (uppercase, club-colour bar, same on every tab), sub-heading / label, body, small */
+.fp .fp-t{font-size:var(--fs-title)}
+.fp .fp-h{display:flex; align-items:center; gap:var(--s2); margin:var(--sec) 0 var(--s3); font:700 var(--fs-h)/1.2 var(--disp); letter-spacing:.06em; text-transform:uppercase; color:#fff}
+.fp .fp-h::before{content:""; flex:none; width:3px; height:14px; border-radius:2px; background:var(--jc-hi)}
+.fp .fp-h::after{content:none}
+.fp .hb-mgr>.fp-h:first-child{margin-top:0}
+.fp .hb-dh,.fp .hb-why-p,.fp .hb-rd,.fp .fp-bench h3,.fp .cp-xis h4,.fp .hb-two h4,.fp .fp-forms>span,.fp .hb-ch,.fp .fp-mine::before{margin:var(--s4) 0 var(--s2); padding:0; font:700 var(--fs-small)/1.3 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.fp .hb-ch{gap:var(--s2); color:var(--text)}
+.fp .fp-note,.fp .cp-note,.fp .hb-hint{margin:0 0 var(--s3); font-size:var(--fs-small); line-height:1.4}
+.fp .fp-stats dt,.fp .fp-stats small,.fp .hb-mh small,.fp .hb-go small,.fp .cp-tie small,.fp .hb-fx small,.fp .fp-tier,.fp .tk-est,.fp .hb-why small,.fp .cp-xis li,.fp .fp-dl small,.fp .hb-big small{font-size:var(--fs-small)}
+.fp .hb-why thead th{font-size:11px}
+.fp .hb-vs dt{font-size:11px}
+.fp .fp-tabs>*{font-size:var(--fs-small)!important}
+/* one card: glass, 1px line, one radius, one padding, no offset shadow; one gap between cards */
+.fp .fp-dl,.fp .fp-last,.fp .hb-mgr,.fp .hb-mh,.fp .cp-live,.fp .cp-head,.fp .hb-big,.fp .fp-bench,.fp .cp-xis,.fp .hb-go.dc,.fp .cp-out,.fp .cp-champ,.fp .fp-none,.fp .hb-sc{padding:var(--pad); border-radius:var(--r); box-shadow:none; margin:0 0 var(--gap)}
+.fp .fp-dl,.fp .fp-last,.fp .hb-mgr,.fp .hb-mh,.fp .cp-head,.fp .hb-big,.fp .fp-bench,.fp .cp-xis,.fp .hb-go.dc,.fp .fp-none{border:1px solid var(--line)}
+.fp .cp-tie,.fp .hb-fx{padding:var(--s2) var(--pad); border-radius:var(--r-s); margin:0}
+.fp .fp-none{background:var(--glass-lo); text-align:center}
+.fp .hb-mgr,.fp .hb-big{border-left-width:1px; border-left-color:var(--line)}
+.fp .fp-stats>div{padding:var(--pad)}
+.fp .hb-mgr{margin-top:var(--sec)}
+.fp .hb-mh{min-height:var(--btn); padding-block:var(--s2)}
+.fp .fp-dl,.fp .fp-last{min-height:56px; padding-block:var(--s2)}
+.fp .fp-last{margin-top:0}
+.fp .hb-dxi{margin:0 0 var(--gap)}
+.fp .hb-job{margin:0 0 var(--s3)}
+.fp .cp-next,.fp .cp-champ,.fp .cp-out,.fp .cp-live{margin-bottom:var(--s3)}
+.fp .hb-fx em{border:0}
+/* lists and rows */
+.fp .cp-grid,.fp .hb-fxs,.fp .hb-opts,.fp .hb-more,.fp .hb-two{gap:var(--gap)}
+.fp .hb-more{padding-top:0}
+.fp .fp-lb{display:grid; gap:var(--gap)}
+.fp .fp-lb li{margin:0}
+.fp .fp-lr{gap:var(--s3); padding:var(--s2) var(--s3) var(--s2) var(--s2)}
+.fp .fp-hist li{padding:var(--s3) 0}
+.fp .fp-hist li:has(>.hb-row){padding:0}
+.fp .cp-goals li{padding:var(--s2) 0}
+.fp .cp-xis li{padding:var(--s1) 0}
+.fp .hb-why th,.fp .hb-why td{padding:var(--s2) var(--s2)}
+.fp .hb-why td:first-child{padding-right:0}
+.fp .hb-fxs .hb-rd{margin:var(--s3) 0 0}
+.fp .hb-fxs .hb-rd:first-child{margin-top:0}
+.fp .fp-badges{gap:var(--s2)}
+.fp .fp-badges li{padding:var(--s1) var(--s3)}
+/* profile */
+.fp .fp-hero{padding-bottom:var(--s3)}
+.fp .fp-acts{gap:var(--s2); margin:var(--s3) 0 0}
+.fp .fp-tierline{margin:var(--sec) 0 var(--s3)}
+.fp .fp-lv{margin-top:var(--s2)}
+.fp .fp-lv small{margin-top:var(--s1)}
+.fp .hb-team{gap:var(--s3); margin-bottom:var(--s3)}
+.fp .hb-team .fp-btn{min-height:var(--btn)}
+.fp .hb-form{gap:var(--s2); margin-bottom:var(--s1)}
+.fp .hb-vote{margin-bottom:var(--s2)}
+.fp .hb-go.dc{margin:var(--s2) 0 0}
+/* «My XI» head */
+.fp .fp-seg{margin:var(--s3) 0}
+.fp .fp-seg>*,.fp .fp-forms button,.fp .tk-chips button,.fp .tk-club,.fp .tk-fold{min-height:var(--ctl)}
+.fp .fp-forms{gap:var(--s2); margin-bottom:var(--s3)}
+.fp .fp-forms>span{margin:0}
+.fp .fp-forms>div{gap:var(--s2); padding:0}
+.fp .fp-bench{margin-top:var(--s3); padding:var(--s3) var(--s2)}
+.fp .fp-bench h3{margin:0; padding:0 var(--s1) var(--s2)}
+.fp .tk-tray header{gap:var(--s2); padding:0 var(--s2)}
+.fp .tk-chips{gap:var(--s1)}
+/* the match page */
+.fp .cp-replay{margin:var(--s3) 0 var(--s2)}
+.fp .cp-xis{gap:var(--s3)}
+
+/* tablet (768-1023): one centred column (as before), the bottom nav no wider than the column */
+@media (min-width:768px) and (max-width:1023px){
+  .fp .fp-tabs{width:min(560px,calc(100% - 2 * var(--s4))); margin-inline:auto}
+  .fp .fp-save{width:min(560px,calc(100% - 2 * var(--s4))); margin-inline:auto; padding-left:var(--s3); padding-right:var(--s2)}
+}
+
+/* desktop (>= 1024): side nav, wide content, columns */
+@media (min-width:1024px){
+  .fp{--gut:var(--s8); --side:224px; display:grid; grid-template-columns:var(--side) minmax(0,1fr); grid-template-rows:64px minmax(0,1fr); grid-template-areas:"nav bar" "nav main"}
+  .fp-cols,.fp-xi,.fp-benches,.hb-pcols,.hb-pside,.hb-pbody,.hb-fcols,.hb-why-g,.cp-rounds{display:block}
+  .fp-col,.hb-fcols>div,.hb-why-c,.cp-rd{display:block; min-width:0}
+  .fp .fp-bar{grid-area:bar; height:64px; padding:0 max(var(--gut),calc((100% - 1320px) / 2)); grid-template-columns:minmax(0,1fr) auto}
+  .fp .fp-bar>i{display:none}
+  .fp .fp-t{grid-column:1; grid-row:1; justify-self:start; font-size:24px}
+  .fp .fp-back{grid-column:2; grid-row:1; justify-self:end}
+  .fp .fp-main{grid-area:main; padding:var(--s4) max(var(--gut),calc((100% - 1320px) / 2)) var(--s8)}
+  .fp .fp-hero{margin:calc(-1 * var(--s4)) 0 0; padding:var(--s8) 0 var(--s4)}
+  .fp .fp-ava{width:96px; height:96px}
+  .fp .fp-id h2{font-size:32px}
+  /* side nav */
+  .fp .fp-tabs{grid-area:nav; flex-direction:column; gap:var(--s1); margin:0; padding:var(--s4) var(--s3); border:0; border-right:1px solid var(--line); border-radius:0; background:rgba(8,11,20,.88)}
+  .fp .fp-tabs::before{content:""; flex:none; height:48px}
+  .fp .fp-tabs>*{flex:none; min-height:48px; flex-direction:row; justify-content:flex-start; gap:var(--s3); padding:0 var(--s4); border-radius:var(--r-s); font:600 15px var(--body)!important; color:var(--muted); transition:background .15s ease-out,color .15s ease-out}
+  .fp .fp-tabs>*:hover{background:var(--glass-lo); color:#fff}
+  .fp .fp-tabs>[aria-current=page]{background:var(--glass-lo); color:#fff}
+  .fp .fp-tabs>[aria-current=page]::after{left:0; top:12px; bottom:12px; width:3px; height:auto}
+  .fp .fp-tabs>button{margin-top:auto}
+  .fp .fp-tabs>*:focus-visible{outline:2px solid #fff; outline-offset:-2px}
+  .fp-toast{bottom:var(--s8)}
+  /* profile: decisions | stats, manager, badges, history */
+  .fp .fp-acts{max-width:520px}
+  .fp-cols{display:grid; grid-template-columns:minmax(0,3fr) minmax(0,2fr); gap:var(--s8); align-items:start}
+  .fp-cols:has(>.fp-col:empty){grid-template-columns:minmax(0,1fr)}
+  .fp-col:empty{display:none}
+  .fp-col>:first-child{margin-top:var(--sec)}
+  .fp-col .hb-cards{flex-wrap:wrap; overflow:visible; margin:0; padding:var(--s1) 0 var(--s3)}
+  /* «My XI»: head in two columns, the pitch at its true shape with the bench beside it, the picker in a right-hand column */
+  .fp[data-page=xi] .fp-main{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:var(--s3); align-content:start}
+  .fp[data-page=xi] .fp-main>*{grid-column:1 / -1}
+  .fp[data-page=xi] .fp-main>.fp-dl,.fp[data-page=xi] .fp-main>.fp-last,.fp[data-page=xi] .fp-main>.fp-seg,.fp[data-page=xi] .fp-main>.fp-forms{grid-column:auto; align-self:start}
+  .fp[data-page=xi] .fp-main>.fp-seg{margin:0 0 var(--s3)}
+  .fp[data-page=xi]:has(.tk-tray){grid-template-columns:var(--side) minmax(0,1fr) 400px; grid-template-rows:64px minmax(0,1fr) auto; grid-template-areas:"nav bar bar" "nav main tray" "nav main save"}
+  .fp[data-page=xi]:has(.tk-tray) .fp-bar,.fp[data-page=xi]:has(.tk-tray) .fp-main{padding-left:var(--s8); padding-right:var(--s6)}
+  .fp-xi{display:grid; grid-template-columns:minmax(0,560px) minmax(180px,1fr); gap:var(--s6); align-items:start; margin-top:var(--s3)}
+  .fp .fp-pitch{width:100%; min-height:0; aspect-ratio:5 / 9; margin:0; padding:var(--s6) var(--s1) var(--s4); font-size:9px; border:1px solid var(--line); border-radius:var(--r); overflow:hidden}
+  .fp .fp-pitch .tk-marks{width:auto; height:calc(100% - 16px); aspect-ratio:1 / 2; left:50%; translate:-50% 0}   /* the lines keep the 60 x 120 m shape; the grass runs past the touchlines */
+  .fp-benches .fp-bench{margin:0 0 var(--gap)}
+  .fp-benches .fp-bench>div{flex-wrap:wrap; justify-content:center; gap:var(--s6) var(--s3)}
+  .fp-benches .fp-bench .tk-lg p,.fp-benches .fp-bench>div>p{flex-basis:100%; text-align:center}
+  .fp .tk-tray{grid-area:tray; display:flex; flex-direction:column; min-height:0; padding:var(--s4) 0 0; border-top:0; border-left:1px solid var(--line); font-size:6.6px}
+  .fp .tk-tray header{flex-wrap:wrap; padding:0 var(--s4)}
+  .fp .tk-chips{flex:1 1 100%; order:3; flex-wrap:wrap; overflow:visible}
+  .fp .tk-club{flex:1}
+  .fp .tk-note{padding:var(--s2) var(--s4) 0}
+  .fp .tk-list{flex:1; min-height:0; flex-wrap:wrap; justify-content:center; align-content:flex-start; gap:2.4em 1.6em; overflow-x:hidden; overflow-y:auto; touch-action:pan-y; padding:3.2em var(--s4) var(--s4); scrollbar-width:thin}
+  .fp .tk-clubs{flex:1; max-height:none; padding:var(--s3) var(--s4)}
+  .fp .fp-save{grid-area:save; margin:0 var(--s4) var(--s4); padding:var(--s2) var(--s2) var(--s2) var(--s3)}
+  .fp .fp-save small{max-width:160px}
+  /* club XI: pitch | how it was picked, the four position tables in a 2 x 2 grid */
+  .fp-xi:has(.hb-how){grid-template-columns:minmax(0,480px) minmax(0,1fr)}
+  .fp-benches>.fp-note:first-child{margin-top:0}
+  .hb-how{margin-top:0}
+  .hb-how>.fp-h{margin-top:0}
+  .hb-why-g{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--s3) var(--s4)}
+  .hb-why-c .hb-why-p{margin-top:0}
+  /* player: the card on the left, the numbers on the right */
+  .hb-pcols{display:grid; grid-template-columns:340px minmax(0,1fr); gap:var(--s8); align-items:start}
+  .hb-pside{position:sticky; top:0; padding-top:var(--s4)}
+  .hb-pbody>.fp-h:first-child{margin-top:var(--s6)}
+  .fp .hb-card,.fp .hb-card .tk-big{font-size:12px}
+  .hb-pbody .fp-stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  /* fixtures: deadline on top, fixtures (two columns of cards) | injuries */
+  .fp[data-page=fixtures] .fp-main>.fp-dl{max-width:560px}
+  .hb-fcols{display:grid; grid-template-columns:minmax(0,3fr) minmax(0,2fr); gap:var(--s8); align-items:start}
+  .hb-fxs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hb-fxs .hb-rd{grid-column:1 / -1}
+  /* leaders: two columns, read down then across */
+  .fp[data-page=leaders] .fp-seg{max-width:480px}
+  .fp .fp-lb{grid-template-columns:1fr 1fr; column-gap:var(--s4)}   /* ranks read across: 1 2 / 3 4 */
+  .fp-mine .fp-lb{grid-template-columns:1fr; max-width:calc(50% - var(--s2))}
+  /* cup: the rounds as bracket columns, ties spread to meet the next round */
+  .fp .cp-next,.fp .cp-out,.fp .cp-champ,.fp .cp-live{max-width:560px}
+  .cp-rounds{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--s4); align-items:stretch}
+  .cp-rd{display:flex; flex-direction:column}
+  .cp-rd .cp-grid{flex:1; grid-template-columns:1fr; align-content:space-around}
+  /* More: three cards in a row */
+  .fp .hb-more{grid-template-columns:repeat(3,minmax(0,1fr))}
+  /* the enlarged card overlay keeps to the content area */
+  .fp .tk-ov{grid-area:1 / 2 / -1 / -1}
+}
+/* 1024-1279: a narrow icon rail, a narrower picker; the bench drops under the pitch */
+@media (min-width:1024px) and (max-width:1279px){
+  .fp{--side:84px}
+  .fp .fp-tabs{padding:var(--s4) var(--s2)}
+  .fp .fp-tabs>*{flex-direction:column; justify-content:center; gap:var(--s1); padding:var(--s2) 0; font-size:var(--fs-small)!important}
+  .fp[data-page=xi]:has(.tk-tray){grid-template-columns:var(--side) minmax(0,1fr) 340px}
+  .fp[data-page=xi]:has(.tk-tray) .fp-bar,.fp[data-page=xi]:has(.tk-tray) .fp-main{padding-left:var(--s6); padding-right:var(--s4)}
+  .fp-xi,.fp-xi:has(.hb-how){grid-template-columns:minmax(0,1fr)}
+  .fp .fp-pitch{max-width:560px; justify-self:center}
+  .hb-pcols{grid-template-columns:300px minmax(0,1fr)}
+}
+
+@media (min-width:768px){ .fp .hb-cards{font-size:10px} .fp .hb-cards.dc .hb-vn{font-size:min(14px,calc(165px / max(var(--w,1),10)))} }   /* tablet+: wider cards keep a long legend name at 11px+ */

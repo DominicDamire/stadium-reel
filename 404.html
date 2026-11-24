@@ -1,12 +1,19 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Stadium</title>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Stadium · 404</title>
 <meta name="robots" content="noindex">
+<style>
+body{margin:0;min-height:100vh;min-height:100dvh;display:grid;place-items:center;background:#0a0a0a;color:#F4F5F7;font:16px/1.5 "Inter",system-ui,sans-serif;text-align:center;padding:16px;box-sizing:border-box}
+b{display:block;font:700 clamp(96px,26vw,200px)/1 "Oswald","Arial Narrow",sans-serif;color:#E10600;text-shadow:5px 5px 0 #000}
+h1{font:700 clamp(24px,6vw,36px)/1.1 "Oswald","Arial Narrow",sans-serif;text-transform:uppercase;margin:0 0 6px}
+p{margin:0 0 24px;opacity:.75}
+a{display:inline-block;min-height:48px;line-height:42px;padding:0 26px;background:#E10600;color:#fff;border:3px solid #000;box-shadow:4px 4px 0 #000;font:700 20px/42px "Oswald","Arial Narrow",sans-serif;text-transform:uppercase;text-decoration:none}
+</style>
 <script>
-// GitHub Pages serves this file for any unknown path. /…/fan/@handle (a shareable profile link) -> the site with #/fan/handle (fan.js routes); anything else -> the site.
+// GitHub Pages serves this file for any unknown path. /…/fan/@handle (a shareable profile link) -> the site with #/fan/handle (fan.js routes); anything else shows this page.
 (function () {
   var p = location.pathname, m = p.match(/^(.*?\/)fan\/@?([A-Za-z0-9._]{1,30})\/?$/);
-  var base = m ? m[1] : '/' + (p.split('/')[1] || '') + '/';   // project page: /<repo>/
-  location.replace(base + location.search + (m ? '#/fan/' + m[2].toLowerCase() : ''));
+  if (m) location.replace(m[1] + location.search + '#/fan/' + m[2].toLowerCase());
+  else document.addEventListener('DOMContentLoaded', function () { document.getElementById('home').href = '/' + (p.split('/')[1] || '') + (p.split('/')[1] ? '/' : ''); });
 })();
 </script></head>
-<body style="background:#0a0a0a;color:#F4F5F7;font:16px system-ui;display:grid;place-items:center;min-height:100vh"><a href="./" style="color:#F4F5F7">Stadium →</a></body></html>
+<body><main><b>404</b><h1>Offside - page not found</h1><p>This seat does not exist.</p><a id="home" href="./">Back to the stadium</a></main></body></html>

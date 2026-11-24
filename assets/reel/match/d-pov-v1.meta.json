@@ -1,0 +1,6 @@
+{
+ "model": "google/nano-banana-2.1-developer/text-to-image",
+ "price": 0.0175,
+ "id": "12d9be93c21e4419a41e5540f2676fe3",
+ "prompt": "Premium 3D-rendered CGI still: Unreal Engine 5 cinematic, AAA football game cutscene, high-end 3D animation look. It must clearly read as a 3D render, NOT a photograph. Night stadium, ray-traced floodlights, volumetric haze, reflections, subsurface-scattered skin, cloth folds, natural hands and proportions, teal-gold cinematic grade, shallow depth of field. Vertical 9:16 frame. Generic anonymous footballers (no real player likeness): one team in plain red and white kits, the other in plain blue kits, NO badges, NO crests, NO logos, NO sponsor boards, NO text, NO letters, NO numbers anywhere in the image. Keep the top fifth of the frame clean and uncluttered for overlays. Scene: first-person view from a stadium seat in a packed stand at night looking down at the floodlit pitch, in the lower foreground the shoulders and backs of the heads of four friendly neighbour fans in red-and-white scarves and jerseys raising scarves and cheering, two at left and two at right, leaving the centre of the frame open, the pitch with players visible in the middle distance, crowd of red and blue fans all around, haze."
+}
